@@ -145,4 +145,7 @@ STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 # Configure Django App for Heroku.
 import django_heroku
 
+GEOS_LIBRARY_PATH = os.getenv("GEOS_LIBRARY_PATH")
+GDAL_LIBRARY_PATH = os.getenv("GDAL_LIBRARY_PATH")
+
 django_heroku.settings(locals())
