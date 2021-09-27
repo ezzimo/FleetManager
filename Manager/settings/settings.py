@@ -4,7 +4,7 @@ from glob import glob
 from pathlib import Path
 
 import dj_database_url
-import environ
+import django_heroku
 from django.core.management.utils import get_random_secret_key
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -150,9 +150,5 @@ EMAIL_HOST_PASSWORD = os.getenv("EMAIL_HOST_PASSWORD")
 DEFAULT_FROM_EMAIL = os.getenv("DEFAULT_FROM_EMAIL")
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 # Configure Django App for Heroku.
-import django_heroku
-
-GEOS_LIBRARY_PATH = os.getenv("GEOS_LIBRARY_PATH")
-GDAL_LIBRARY_PATH = os.getenv("GDAL_LIBRARY_PATH")
 
 django_heroku.settings(locals())
