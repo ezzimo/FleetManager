@@ -9,8 +9,8 @@ from django.core.management.utils import get_random_secret_key
 
 from .storage import BASE_DIR, STATIC_URL
 
-GDAL_LIBRARY_PATH = glob("/usr/lib/libgdal.so.*")[0]
-GEOS_LIBRARY_PATH = glob("/usr/lib/libgeos_c.so.*")[0]
+# GDAL_LIBRARY_PATH = glob("/usr/lib/libgdal.so.*")[0]
+# GEOS_LIBRARY_PATH = glob("/usr/lib/libgeos_c.so.*")[0]
 
 env = environ.Env()
 environ.Env.read_env()
