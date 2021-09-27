@@ -79,6 +79,7 @@ DATABASES = {
     "default": dj_database_url.config(conn_max_age=86400),
 }
 
+DATABASES["default"]["ENGINE"] = "django.contrib.gis.db.backends.postgis"
 
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
