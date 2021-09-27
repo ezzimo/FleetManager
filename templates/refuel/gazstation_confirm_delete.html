@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% load mathfilters %}
+{% block title %}
+    <title>gazstation supression</title>
+  {% endblock title %}
+  {% block content %}
+  <div class="container-fluid">
+    <div class="content">
+      <h1>Vous etes sur de vouloir suprimer ce Station!! </h1>
+    </div>
+    <div class="content">
+      {% csrf_token %}
+        <table>
+          <thead>
+            <th>Nom </th>
+            <th>Controlor </th>
+            <th>Ville </th>
+          </thead>
+            <tbody>
+              <td>{{ gazstation.name}}</td>
+              <td>{{ gazstation.Controlor_id.first_name }}</td>
+              <td>{{ gazstation.city_id.city }}</td>
+              <td> <form action="" method="POST">
+                {% csrf_token %}
+                 <input type="submit" value="Delete">
+                <input type="submit" onclick=" window.location= '{% url 'Drivers_App_Management:all-gazstations' %}' ; return False;" value="Cancel">
+              </form></td>
+            </tbody>
+        </table>
+      </div>
+    </div>

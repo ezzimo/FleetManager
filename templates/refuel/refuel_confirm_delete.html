@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% load mathfilters %}
+{% block title %}
+  <title>Suprimer Gazoile</title>
+{% endblock title %}
+{% block content %}
+<h1>Vous etes sur de vouloir suprimer ce Controleur!! </h1>
+ {% csrf_token %}
+ <table>
+   <thead>
+     <th>Vehicule Serie :</th>
+     <th>Matricule Chauffeur :</th>
+     <th>Station : </th>
+     <th>Date :</th>
+     <th>Kilometrage :</th>
+     <th>Quantitée gazoile: </th>
+     <th>Prix Litre  (Dh): </th>
+     <th>Totale (Dh)</th>
+     <th> Confirmer supression</th>
+   </thead>
+   <tbody id="body-table">
+     {% for refuel in refuel_list %}
+           <tr>
+             <td>{{ refuel.vehicle_id.serie}}</td>
+             <td>{{ refuel.driver_id.registration_number }}</td>
+             <td>{{ refuel.gaz_station_id.name}}</td>
+             <td>{{ refuel.date_time_creation }}</td>
+             <td>{{ refuel.odometer_reading }}</td>
+             <td>{{ refuel.fuel_quantity }}</td>
+             <td>{{ refuel.fuel_unit_price }}</td>
+             <td>{{ refuel.fuel_quantity|mul:refuel.fuel_unit_price }}</td>
+             <td> <form action="" method="POST">
+         {% csrf_token %}
+          <input type="submit" value="Delete">
+         <input type="submit" onclick=" window.location= '{% url 'Drivers_App_Management:controlor-refuel-list' %}' ; return False;" value="Cancel">
+       </form></td>
+     </tbody>
+ </table>
+{% endblock content %}

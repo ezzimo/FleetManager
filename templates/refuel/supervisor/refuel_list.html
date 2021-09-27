@@ -1,0 +1,74 @@
+{% extends 'base.html' %}
+{% block title %}
+    <title>Refuels List</title>
+    <style media="screen">
+      #body-table tr:nth-child(odd){
+        background: #F2F2F2;
+      }
+      #body-table tr:nth-child(even){
+        background: #CDBB79;
+      }
+    </style>
+{% endblock title %}
+{% block content %}
+<div class="container">
+  <div class="contents">
+    <h1>Liste d'Alimentations en Carburant </h1>
+  </div>
+  <div class="container">
+        {% csrf_token %}
+        <table class="table table-hover" border="2">
+          <thead class="table-dark">
+            <th>Vehicule :</th>
+            <th>Station : </th>
+            <th>Date :</th>
+            <th>Kilometrage :</th>
+            <th>Litrage Gazoile: </th>
+            <th>Prix Litre (Dh): </th>
+            <th>Totale (Dh)</th>
+            <th>Ville</th>
+          </thead>
+          <tbody id="body-table">
+            {% for refuel in refuel_list %}
+                  <tr>
+                    <td>{{ refuel.vehicle.serie}}</td>
+                    <td>{{ refuel.gaz_station.name}}</td>
+                    <td>{{ refuel.created_at|date:"d-M-Y" }}</td>
+                    <td>{{ refuel.odometer_reading }}</td>
+                    <td>{{ refuel.fuel_quantity }}</td>
+                    <td>{{ refuel.fuel_unit_price }}</td>
+                    <td>{{ refuel.total_price }}</td>
+                    <td>{{ refuel.gaz_station.city_id }}</td>
+                  </tr>
+              {% endfor %}
+          </tbody>
+        </table>
+
+            {% block pagination %}
+            {% if is_paginated %}
+                <div class="pagination">
+                    <span class="page-links">
+                        {% if page_obj.has_previous %}
+                            <a href="{{ request.path }}?page={{ page_obj.previous_page_number }}">precedante</a>
+                        {% endif %}
+                        <span class="page-current">
+                            Page {{ page_obj.number }} de {{ page_obj.paginator.num_pages }}.
+                        </span>
+                        {% if page_obj.has_next %}
+                            <a href="{{ request.path }}?page={{ page_obj.next_page_number }}">suivante</a>
+                        {% endif %}
+                    </span>
+                </div>
+            {% endif %}
+          {% endblock %}
+      </div>
+      <ul>
+      {% for total_price in Totale %}
+      <div>
+      <li>{{total_price}}</li>
+      </div>
+      {% endfor %}
+      </ul>
+  </div>
+
+{% endblock content %}

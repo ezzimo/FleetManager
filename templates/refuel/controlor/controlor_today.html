@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+{% block title %}
+<title>Alimetation Gazoile List</title>
+
+{% endblock title %}
+{% block content %}
+<div class="container">
+  <h3>La liste du Gazoile pour Station {{ user }} </h3>
+  <div class="container">
+    {% csrf_token %}
+    <table class="table table-hover" border="2">
+      <thead class="table-dark">
+        <th scope="row">              Matricule Vehicule :  </th>
+        <th scope="row" colspan="2">  Chauffeur :           </th>
+        <th scope="row">              Kilometrage :         </th>
+        <th scope="row">              Mouchard :            </th>
+        <th scope="row">              Litrages (L):         </th>
+        <th scope="row">              Prix Unitée (Dh):     </th>
+        <th scope="row">              Totale (Dh):          </th>
+        <th scope="row" colspan="2">  Action:               </th>
+      </thead>
+      <tbody id="body-table">
+        {% for refuel in refuel_list %}
+        <tr>
+          <td>{{ refuel.vehicle.serie}}</td>
+          <td>{{ refuel.vehicle.driver.first_name }} {{refuel.vehicle.driver.last_name}}</td>
+          <td>{{ refuel.odometer_reading }}</td>
+          <td>{{ refuel.snitch }}</td>
+          <td>{{ refuel.fuel_quantity }}</td>
+          <td>{{ refuel.fuel_unit_price }}</td>
+          <td>{{ refuel.total_price }}</td>
+          <td colspan="2">(<a href=" {% url 'refuel:refuel-update' refuel.id %} ">Modifier</a>) (<a
+              href=" {% url 'refuel:refuel-delete' refuel.id %} ">Suprimer</a>)</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+
+    {% block pagination %}
+    {% if is_paginated %}
+    <div class="pagination">
+      <span class="page-links">
+        {% if page_obj.has_previous %}
+        <a href="{{ request.path }}?page={{ page_obj.previous_page_number }}">precedant</a>
+        {% endif %}
+        <span class="page-current">
+          Page {{ page_obj.number }} de {{ page_obj.paginator.num_pages }}.
+        </span>
+        {% if page_obj.has_next %}
+        <a href="{{ request.path }}?page={{ page_obj.next_page_number }}">suivant</a>
+        {% endif %}
+      </span>
+    </div>
+    {% endif %}
+    {% endblock %}
+  </div>
+  <hr>
+  <br><span>Totale</span>
+  {{total = sum([refuel.total_price for refuel in refuel_list])}}
+</div>
+{% endblock content %}

@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+{% block title %}
+<title>Ajouter Alimetation Gazoile</title>
+{% endblock title %}
+{% block content %}
+<div class="container">
+  <div class="content">
+    <h1>Une Nouvelle <b>Alimentation En Carburant</b> </h1>
+  </div>
+  <center>
+  <form class="" action="{% url 'refuel:refuel-creation' %}" method="post">
+    {% csrf_token %}
+    <table>
+      {{ form.as_table }}
+    </table>
+    <button class="btn btn-primary btn-lg py-2 mb-4 mt-4 fw-bold" id="refuel-button"  role="button" type="submit" >Enregistrer</button>
+    <button class="btn btn-secondary btn-lg py-2 mb-4 mt-4 fw-bold" role="button" type="button" onclick="window.location='{% url 'refuel:controlor-refuel-list' %}' ; return False;">Annuler</button>
+  </form>
+
+  <div>
+  <ul>
+    <li>{{form.vehicle}}</li>
+  </ul>
+  </div>
+  </center>
+</div>
+{% comment %} 
+<script>
+        var old_refuel_data = "{{last_refuel_list|escapejs}}" ;
+        console.log(old_refuel_data);
+        console.log(old_refuel_data[0][vehicle]);
+        for (refuel in old_refuel_data) {
+          console.log(refuel[0].vehicle);
+        }
+        
+    // Save Refuel
+    $(document).on('click', '#refuel-button', function (e) {
+        e.preventDefault();
+        for (refuel in old_refuel_data){
+          if (refuel.vehicle.serie == $('#vehicle-select option:selected').val()) {
+           consumption = (refuel.fuel_quantity / ($('#odometer').val() - refuel.odometer_reading)) * 100
+           driver = refuel.vehicle.driver
+          }}
+        $.ajax({
+            type: 'POST',
+            url: "{% url 'refuel:consumption' %}" ,
+            data: {
+                consumption: consumption,
+                vehicle: $('#vehicle-select option:selected').val(),
+                driver: driver,
+                csrfmiddlewaretoken: "{{csrf_token}}",
+                action: 'post',
+            },
+            success: function (json) {
+                console.log(consumption)
+            },
+            error: function (xhr, errmsg, err) {}
+        });
+    })
+</script> {% endcomment %}
+{% endblock content %}

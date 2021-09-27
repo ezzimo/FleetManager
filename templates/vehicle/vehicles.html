@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% block title %} Vehicles {% endblock  %}
+<!--Core of the Vehicles List page-->
+{% block content %}
+<div class="container">
+    <div class="pb-3 h5"> Nos Véhicules </div>
+    {% if not vehicles %}
+    <div class="col-12"> There is currently no vehicles to show </div>
+    {% else %}
+    <div class="row row-cols-1 row-cols-md-3 mb-3 text-center">
+        {% for vehicle in vehicles %}
+        <div class="col">
+            <div class="card mb-4 rounded-3 shadow-sm">
+                <div class="card-header py-3">
+                    <h4 class="my-0 fw-normal"> {{ vehicle.model.make}} </h4>
+                    <h3 class="my-0 fw-normal"> {{ vehicle.model}} </h3>
+                </div>
+                <div class="card-body">
+                    <img src="{{ vehicle.picture.url}}" alt="Hi" class="img-fluid" height="350" width="650">
+                    <div class="list-unstyled mt-3 mb-4">
+                        <a href=" {{vehicle.get_absolute_url}}">
+                            <p>
+                                {{vehicle.slug}}
+                            </p>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+    {% comment %} <div> {% endcomment %}
+        {% comment %} <hr> {% endcomment %}
+        {% comment %} <a class="btn btn-success fw500" type="button" href="#">Add</a> {% endcomment %}
+    {% comment %} </div> {% endcomment %}
+</div>
+{% endblock %}
+<!-- End of the HomVehicles Liste page core -->

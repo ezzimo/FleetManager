@@ -1,0 +1,80 @@
+<html lang="fr" dir="ltr">
+{% load i18n %}
+  <head>
+    <meta charset="utf-8">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+    <style media="screen">
+    tr:nth-child(odd){
+      background: #F2F2F2;
+    }
+    tr:nth-child(even){
+      background: #CDBB79;
+    }
+    </style>
+    <title>Gaz Station List</title>
+  </head>
+  <body>
+    <nav class="navbar">
+      <div class="container">
+        <a class="navbar-brand"> STJG</a>
+      </div>
+    </nav>
+    <div class="container">
+        {% csrf_token %}
+        <ul>
+          <table border="2" class="table text-center table-hover table-bordered caption-top">
+            <caption class="text-center">This is the Gaz Stations List</caption>
+            <thead class="table-dark">
+              <tr>
+                <td>Station name</td>
+                <td>Controlor name</td>
+                <td>registration number </td>
+                <td>City </td>
+                <td>geolocalization</td>
+                <th colspan="2">actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for gazstation in gazstation_list %}
+              <tr>
+                <td>{{gazstation.name}}</td>
+                <td>{{ gazstation.controlor.first_name }}</td>
+                <td>{{ gazstation.controlor.registration_number }}</td>
+                <td>{{ gazstation.city_id.city}}</td>
+                <td> <map>
+                  {{gazstation.geo_localization}}
+                </map> </td>
+                <td colspan="2">(<a href=" {% url 'Drivers_App_Management:gazstation-update' gazstation.id %} ">Modifier</a>)   (<a href=" {% url 'Drivers_App_Management:gazstation-delete' gazstation.id %} ">Suprimer</a>)</td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </ul>
+    <ul>
+      <li> <a href="login">Hi</a> </li>
+      <li> <a href="#">How are you</a> </li>
+      <li></li>
+    </ul>
+        {% block pagination %}
+        {% if is_paginated %}
+            <div class="pagination">
+                <span class="page-links">
+                    {% if page_obj.has_previous %}
+                        <a href="{{ request.path }}?page={{ page_obj.previous_page_number }}">previous</a>
+                    {% endif %}
+                    <span class="page-current">
+                        Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+                    </span>
+                    {% if page_obj.has_next %}
+                        <a href="{{ request.path }}?page={{ page_obj.next_page_number }}">next</a>
+                    {% endif %}
+                </span>
+            </div>
+        {% endif %}
+      {% endblock %}
+  </body>
+</html>

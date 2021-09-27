@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+{% load mathfilters %}
+{% block title %}
+    <title>Refuels Archive</title>
+{% endblock title %}
+{% block content %}
+          <div class="container">
+                  <h1>La liste des gazoile archivé </h1>
+              <ul>
+                  {% for date in date_list %}
+              <li>{{ date|date }}</li>
+                  {% endfor %}
+              </ul>
+          <div>
+        <h1>All Refuels for {{ year|date:"Y" }}</h1>
+        {% regroup object_list by vehicle_id as vehicle_refuel %}
+        <ul>
+          {% for vehicle_id, refuels in vehicle_refuel %}
+            <li><p>
+              Les pleints fait pour {{ vehicle_id}} sont:
+            </p></li>
+            <table border="2" id="body-table">
+              <thead class="table-dark">
+                <tr>
+                  <th colspan="2">Driver name :</th>
+                  <th>Driver number :</th>
+                  <th>Gaz Station : </th>
+                  <th>Date :</th>
+                  <th>Kilometrage :</th>
+                  <th>Quantity of Fuel: </th>
+                  <th>Litre Price (Dh): </th>
+                  <th>Totale (Dh)</th>
+                  <th>City</th>
+                </tr>
+              </thead>
+              <tbody id="body-table">
+              {% for refuel in refuels %}
+              <tr>
+                <td colspan="2">{{ refuel.driver_id.first_name}}  {{ refuel.driver_id.last_name }}</td>
+                <td>{{ refuel.driver_id.registration_number }}</td>
+                <td>{{ refuel.gaz_station_id.name}}</td>
+                <td>{{ refuel.date_time_creation }}</td>
+                <td>{{ refuel.odometer_reading }}</td>
+                <td>{{ refuel.fuel_quantity }}</td>
+                <td>{{ refuel.fuel_unit_price }}</td>
+                <td>{{ refuel.fuel_quantity|mul:refuel.fuel_unit_price }}</td>
+                <td>{{ refuel.gaz_station_id.city_id.city }}</td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+            {% endfor %}
+        </ul>
+          </div>
+        </div>
+        {% endblock content %}
