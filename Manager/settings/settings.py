@@ -35,6 +35,7 @@ INSTALLED_APPS = [
     "refuel",
     "django.contrib.gis",
     "storages",
+    "whitenoise.runserver_nostatic",
 ]
 
 MIDDLEWARE = [
@@ -74,9 +75,8 @@ WSGI_APPLICATION = "Manager.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
-DATABASES = {
-    "default": dj_database_url.config(),
-}
+db_from_env = dj_database_url.config(conn_max_age=86400)
+DATABASES["default"].update(db_from_env)
 
 
 # Password validation
@@ -116,6 +116,9 @@ USE_TZ = True
 AUTH_USER_MODEL = "account.User"
 LOGIN_REDIRECT_URL = "/account/dashboard"
 LOGIN_URL = "/account/login/"
+
+
+# STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
 
 # Static files (CSS, JavaScript, Images)
