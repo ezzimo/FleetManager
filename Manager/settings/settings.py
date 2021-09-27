@@ -7,7 +7,7 @@ import dj_database_url
 import environ
 from django.core.management.utils import get_random_secret_key
 
-from .storage import BASE_DIR, STATIC_URL
+from .storage import BASE_DIR, STATIC_ROOT, STATIC_URL, STATICFILES_DIRS
 
 # GDAL_LIBRARY_PATH = glob("/usr/lib/libgdal.so.*")[0]
 # GEOS_LIBRARY_PATH = glob("/usr/lib/libgeos_c.so.*")[0]
@@ -41,6 +41,9 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    # Simplified static file serving.
+    # https://warehouse.python.org/project/whitenoise/
+    "whitenoise.middleware.WhiteNoiseMiddleware",
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
@@ -138,3 +141,4 @@ EMAIL_PORT = os.getenv("EMAIL_PORT")
 EMAIL_HOST_USER = os.getenv("EMAIL_HOST_USER")
 EMAIL_HOST_PASSWORD = os.getenv("EMAIL_HOST_PASSWORD")
 DEFAULT_FROM_EMAIL = os.getenv("DEFAULT_FROM_EMAIL")
+STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
