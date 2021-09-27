@@ -88,7 +88,7 @@ if DEVELOPMENT_MODE is True:
             "PORT": "",
         }
     }
-elif len(sys.argv) > 0 and sys.argv[1] != "collectstatic":
+elif len(sys.argv) > 0:
     if os.getenv("DATABASE_URL", None) is None:
         raise Exception("DATABASE_URL environment variable not defined")
     DATABASES = {
