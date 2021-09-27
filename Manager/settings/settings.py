@@ -7,13 +7,16 @@ import dj_database_url
 import environ
 from django.core.management.utils import get_random_secret_key
 
-from .storage import BASE_DIR, STATIC_ROOT, STATIC_URL, STATICFILES_DIRS
+# Build paths inside the project like this: BASE_DIR / 'subdir'.
+BASE_DIR = Path(__file__).resolve().parent.parent.parent
 
-# GDAL_LIBRARY_PATH = glob("/usr/lib/libgdal.so.*")[0]
-# GEOS_LIBRARY_PATH = glob("/usr/lib/libgeos_c.so.*")[0]
 
-env = environ.Env()
-environ.Env.read_env()
+#########################################################################"
+# ######################################################################"
+GDAL_LIBRARY_PATH = glob("/usr/lib/libgdal.so.*")[0]
+GEOS_LIBRARY_PATH = glob("/usr/lib/libgeos_c.so.*")[0]
+
+
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.getenv("SECRET_KEY", get_random_secret_key())
 
@@ -119,6 +122,30 @@ USE_TZ = True
 AUTH_USER_MODEL = "account.User"
 LOGIN_REDIRECT_URL = "/account/dashboard"
 LOGIN_URL = "/account/login/"
+
+
+# Static files (CSS, JavaScript, Images)
+# https://docs.djangoproject.com/en/3.1/howto/static-files/
+
+STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
+STATICFILES_STORAGE = "storages.backends.s3boto3.S3Boto3Storage"
+AWS_ACCESS_KEY_ID = os.getenv("AWS_ACCESS_KEY_ID")
+AWS_SECRET_ACCESS_KEY = os.getenv("AWS_SECRET_ACCESS_KEY")
+AWS_STORAGE_BUCKET_NAME = os.getenv("AWS_STORAGE_BUCKET_NAME")
+AWS_DEFAULT_ACL = "public-read"
+AWS_S3_CUSTOM_DOMAIN = f"{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com"
+AWS_S3_OBJECT_PARAMETERS = {"CacheControl": "max-age=86400"}
+# A path prefix that will be prepended to all uploads
+AWS_LOCATION = "static"
+STATIC_URL = f"https://{AWS_S3_CUSTOM_DOMAIN}/{AWS_LOCATION}/"
+
+STATICFILES_DIRS = (os.path.join(BASE_DIR, "static"),)
+
+# Media files
+MEDIA_URL = "/media/"
+MEDIA_ROOT = os.path.join(BASE_DIR, "media")
+
+
 # Email settings
 EMAIL_BACKEND = os.getenv("EMAIL_BACKEND")
 EMAIL_HOST = os.getenv("EMAIL_HOST")
