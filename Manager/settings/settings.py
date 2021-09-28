@@ -17,8 +17,7 @@ SECRET_KEY = os.getenv("SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.getenv("DEBUG", "False") == "True"
 
-ALLOWED_HOSTS = os.getenv("ALLOWED_HOSTS").split(',')
-heroku config:set 'ALLOWED_HOSTS' = 'stjg.herokuapp.com/'
+ALLOWED_HOSTS = os.getenv("ALLOWED_HOSTS").split(",")
 DEVELOPMENT_MODE = os.getenv("DEVELOPMENT_MODE", "False")
 
 
