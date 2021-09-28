@@ -17,7 +17,7 @@ SECRET_KEY = os.getenv("SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.getenv("DEBUG", "False") == "True"
 
-ALLOWED_HOSTS = os.getenv("ALLOWED_HOSTS")
+ALLOWED_HOSTS = ["*"]
 DEVELOPMENT_MODE = os.getenv("DEVELOPMENT_MODE", "False")
 
 
@@ -79,7 +79,7 @@ DATABASES = {
     "default": dj_database_url.config(conn_max_age=86400),
 }
 
-DATABASES["default"]["ENGINE"] = "django.contrib.gis.db.backends.postgis"
+DATABASES["default"] = dj_database_url.config()  # ["ENGINE"] = "django.contrib.gis.db.backends.postgis"
 
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
