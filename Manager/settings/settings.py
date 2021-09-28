@@ -75,6 +75,8 @@ WSGI_APPLICATION = "Manager.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
+django_heroku.settings(locals())
+
 DATABASES = {
     "default": dj_database_url.config(conn_max_age=86400),
 }
@@ -155,5 +157,3 @@ EMAIL_HOST_PASSWORD = os.getenv("EMAIL_HOST_PASSWORD")
 DEFAULT_FROM_EMAIL = os.getenv("DEFAULT_FROM_EMAIL")
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 # Configure Django App for Heroku.
-
-django_heroku.settings(locals())
