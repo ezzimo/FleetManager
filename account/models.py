@@ -73,7 +73,7 @@ class User(AbstractBaseUser, PermissionsMixin):
         def get_value(cls, member):
             return cls[member].value[0]
 
-    user_type = models.CharField(max_length=2, choices=UserTypes.choices)
+    user_type = models.CharField(max_length=2, choices=UserTypes.choices, default=Driver)
     email = models.EmailField(_("Email Address"), unique=True)
     first_name = models.CharField(_("First Name"), max_length=150, unique=True)
     last_name = models.CharField(_("Last Name"), max_length=150, unique=True)
