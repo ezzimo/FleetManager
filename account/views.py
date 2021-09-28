@@ -66,7 +66,9 @@ def account_register(request):
                 },
             )
             user.email_user(subject=subject, message=message)
-            return render(request, "account/registration/register_email_confirm.html", {"form": registerForm})
+            return render(
+                request, "account/registration/register_email_confirm.html", context_instance=RequestContext(request)
+            )
     else:
         registerForm = RegistrationForm
         return render(request, "account/registration/register.html", {"form": registerForm})
