@@ -78,7 +78,7 @@ class RegistrationForm(UserCreationForm):
     email = forms.EmailField(
         max_length=100, help_text=_("Required"), error_messages={"Required": "Sorry, you will need an email"}
     )
-    password1 = forms.CharField(label="Password", widget=forms.PasswordInput)
+    password = forms.CharField(label="Password", widget=forms.PasswordInput)
     password2 = forms.CharField(label="Repeat password", widget=forms.PasswordInput)
 
     class Meta:
@@ -110,7 +110,7 @@ class RegistrationForm(UserCreationForm):
         self.fields["email"].widget.attrs.update(
             {"class": "form-control mb-3", "placeholder": "E-mail", "name": "email", "id": "id_email"}
         )
-        self.fields["password1"].widget.attrs.update({"class": "form-control mb-3", "placeholder": "Password"})
+        self.fields["password"].widget.attrs.update({"class": "form-control mb-3", "placeholder": "Password"})
         self.fields["password2"].widget.attrs.update({"class": "form-control", "placeholder": "Repeat Password"})
 
 
