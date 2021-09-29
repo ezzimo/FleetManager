@@ -97,6 +97,12 @@ class RegistrationForm(UserCreationForm):
             raise forms.ValidationError("Name already exists")
         return first_name + " " + last_name
 
+    def clean_password2(self):
+        cd = self.cleaned_data
+        if cd["password"] != cd["password2"]:
+            raise forms.ValidationError("Passwords do not match.")
+        return cd["password2"]
+
     def clean_email(self):
         email = self.cleaned_data["email"]
         if User.objects.filter(email=email).exists():
