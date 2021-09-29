@@ -135,6 +135,13 @@ class User(AbstractBaseUser, PermissionsMixin):
         verbose_name = "Account"
         verbose_name_plural = "Accounts"
 
+    def full_name(self):
+        """
+        Return the first_name plus the last_name, with a space in between.
+        """
+        full_name = "%s %s" % (self.first_name, self.last_name)
+        return full_name.strip()
+
     def email_user(self, subject, message):
         send_mail(
             subject,

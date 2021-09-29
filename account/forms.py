@@ -90,6 +90,13 @@ class RegistrationForm(UserCreationForm):
             "email",
         )
 
+    def clean_full_name(self):
+        first_name = self.cleaned_data["first_name"].lower()
+        last_name = self.cleaned_data["last_name"].lower()
+        if User.objects.filter(first_name__exact=first_name, last_name__exact=last_name).exists():
+            raise forms.ValidationError("Ce Nom et Prenom existent déjà!")
+        return first_name + " " + last_name
+
     def clean_password2(self):
         # cd = self.cleaned_data
         password1 = self.cleaned_data.get("password1")
