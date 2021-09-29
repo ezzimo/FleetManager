@@ -69,7 +69,7 @@ def account_register(request):
             )
             user.email_user(subject=subject, message=message)
             messages.success(request, "Creation du Compte réussi")
-            return redirect("account/registration/register_email_confirm.html")
+            return redirect("account:register_email_confirm")
     else:
         registerForm = RegistrationForm
         return render(request, "account/registration/register.html", {"form": registerForm})

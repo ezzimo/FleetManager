@@ -15,6 +15,11 @@ urlpatterns = [
     ),
     path("logout/", auth_views.LogoutView.as_view(next_page="/account/login/"), name="logout"),
     path("register/", views.account_register, name="register"),
+    path(
+        "registration_confirmed",
+        TemplateView.as_view(template_name="account/registration/register_email_confirm.html"),
+        name="register_email_confirm",
+    ),
     path("activate/<slug:uidb64>/<slug:token>/", views.account_activate, name="activate"),
     path(
         "password_reset/",
