@@ -20,24 +20,23 @@
     {% endfor %}
     {% endif %}
 
-    <label>{{ form.first_name.label}} <span class="text-muted small"> (Required)
-        </span></label>
+    <label>{{ form.first_name.label}}</label>
     {{ form.first_name }}
-    <label>{{ form.last_name.label}} <span class="text-muted small"> (Required)
-        </span></label>
+    <label>{{ form.last_name.label}} </label>
     {{ form.last_name }}
-    <label> {{form.email.label}} <span class="text-muted small"> (Required) </span></label>
+    <label> {{form.email.label}} </label>
     {{ form.email }}
-    <label>{{ form.password1.label}}<span class="text-muted mb-4"> (Required) </span></label>
+    <label>{{ form.password1.label}}</label>
     <small class="form-text text-muted mb-4 small">
-        At least 8 characters and 1 digit
+        Au moins 8 characters et 1 chiffre
     </small>
     {{ form.password1 }}
-    <label>{{ form.password2.label}}<span class="text-muted small"> (Required)
-        </span></label>
+    <label>{{ form.password2.label}}</label>
     {{ form.password2 }}
-    <p class="text-center">
+    <div class="d-grid gap-2">
     <button class="btn btn-primary btn-block py-2 mb-4 mt 5 fw500 w-100" type="submit">S'inscrire</button>
+    </div>
+    <p class="text-center">
         <a href="{% url 'account:login' %}">Dejà Membre? </a>
     </p>
 </form>
