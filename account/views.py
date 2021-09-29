@@ -50,7 +50,7 @@ def account_register(request):
         if registerForm.is_valid():
             user = registerForm.save(commit=False)
             user.email = registerForm.cleaned_data["email"]
-            user.set_password(registerForm.cleaned_data["password"])
+            user.set_password(registerForm.cleaned_data["password1"])
             user.user_type = "dr"
             user.is_active = False
             user.is_staff = False
