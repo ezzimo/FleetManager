@@ -1,3 +1,4 @@
+from django.contrib import messages
 from django.contrib.auth import login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.sites.shortcuts import get_current_site
@@ -67,7 +68,8 @@ def account_register(request):
                 },
             )
             user.email_user(subject=subject, message=message)
-            return render(request, "account/registration/register_email_confirm.html", {"form": registerForm})
+            messages.success(request, "Creation du Compte réussi")
+            return redirect("account/registration/register_email_confirm.html")
     else:
         registerForm = RegistrationForm
         return render(request, "account/registration/register.html", {"form": registerForm})

@@ -6,6 +6,7 @@ from django.contrib.auth.forms import (
     UserChangeForm,
     UserCreationForm,
 )
+from django.core.exceptions import ValidationError
 from django.forms import fields
 from django.utils.translation import gettext_lazy as _
 
@@ -78,7 +79,7 @@ class RegistrationForm(UserCreationForm):
     email = forms.EmailField(
         max_length=100, help_text=_("Required"), error_messages={"Required": "Sorry, you will need an email"}
     )
-    password = forms.CharField(label="Password", widget=forms.PasswordInput)
+    password1 = forms.CharField(label="Password", widget=forms.PasswordInput)
     password2 = forms.CharField(label="Repeat password", widget=forms.PasswordInput)
 
     class Meta:
@@ -98,10 +99,17 @@ class RegistrationForm(UserCreationForm):
         return first_name + " " + last_name
 
     def clean_password2(self):
-        cd = self.cleaned_data
-        if cd["password"] != cd["password2"]:
-            raise forms.ValidationError("Passwords do not match.")
-        return cd["password2"]
+        # cd = self.cleaned_data
+        password1 = self.cleaned_data.get("password1")
+        password2 = self.cleaned_data.get("password2")
+
+        if password1 and password2 and password1 != password2:
+            raise ValidationError("Les mots de passes sont differents")
+
+        return password2
+        # if cd["password"] != cd["password2"]:
+        # raise forms.ValidationError("Passwords do not match.")
+        # return cd["password2"]
 
     def clean_email(self):
         email = self.cleaned_data["email"]
