@@ -7,6 +7,7 @@ from django.contrib.auth.forms import (
     UserCreationForm,
 )
 from django.core.exceptions import ValidationError
+from django.db.models import Q
 from django.forms import fields
 from django.utils.translation import gettext_lazy as _
 
@@ -93,7 +94,7 @@ class RegistrationForm(UserCreationForm):
     def clean_username(self):
         first_name = self.cleaned_data["first_name"].lower()
         last_name = self.cleaned_data["last_name"].lower()
-        r = User.objects.filter(first_name=first_name, last_name=last_name)
+        r = User.objects.filter(Q(first_name=first_name) and Q(last_name=last_name))
         if r.count():
             raise forms.ValidationError("Name already exists")
         return first_name + " " + last_name
