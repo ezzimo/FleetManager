@@ -72,7 +72,7 @@ def account_register(request):
             return redirect("account:register_email_confirm")
     else:
         registerForm = RegistrationForm
-        return render(request, "account/registration/register.html", {"form": registerForm})
+    return render(request, "account/registration/register.html", {"form": registerForm})
 
 
 def account_activate(request, uidb64, token):
