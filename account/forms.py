@@ -74,8 +74,8 @@ class UserChangeForm(UserChangeForm):
 
 
 class RegistrationForm(UserCreationForm):
-    first_name = forms.CharField(label=_("Enter First name"), min_length=4, max_length=50, help_text="Required")
-    last_name = forms.CharField(label=_("Enter Last name"), min_length=4, max_length=50, help_text="Required")
+    first_name = forms.CharField(label=_("Entrer Votre Prenom"), min_length=4, max_length=50, help_text="Required")
+    last_name = forms.CharField(label=_("Enter Votre Nom"), min_length=4, max_length=50, help_text="Required")
     email = forms.EmailField(
         max_length=100, help_text=_("Required"), error_messages={"Required": "Sorry, you will need an email"}
     )
@@ -119,13 +119,13 @@ class RegistrationForm(UserCreationForm):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.fields["first_name"].widget.attrs.update({"class": "form-control mb-3", "placeholder": "First name"})
-        self.fields["last_name"].widget.attrs.update({"class": "form-control mb-3", "placeholder": "Last name"})
+        self.fields["first_name"].widget.attrs.update({"class": "form-control mb-3", "placeholder": "Prenom"})
+        self.fields["last_name"].widget.attrs.update({"class": "form-control mb-3", "placeholder": "Nom"})
         self.fields["email"].widget.attrs.update(
             {"class": "form-control mb-3", "placeholder": "E-mail", "name": "email", "id": "id_email"}
         )
         self.fields["password1"].widget.attrs.update({"class": "form-control mb-3", "placeholder": "Password"})
-        self.fields["password2"].widget.attrs.update({"class": "form-control", "placeholder": "Repeat Password"})
+        self.fields["password2"].widget.attrs.update({"class": "form-control mb-3", "placeholder": "Repeat Password"})
 
 
 class UserEditForm(forms.ModelForm):
