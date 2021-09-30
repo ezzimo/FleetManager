@@ -73,7 +73,7 @@ class UserChangeForm(UserChangeForm):
         fields = "__all__"
 
 
-class RegistrationForm(UserCreationForm):
+class RegistrationForm(forms.ModelForm):
     first_name = forms.CharField(label=_("Entrer Votre Prenom"), min_length=4, max_length=50, help_text="Required")
     last_name = forms.CharField(label=_("Enter Votre Nom"), min_length=4, max_length=50, help_text="Required")
     email = forms.EmailField(
