@@ -87,7 +87,7 @@ def account_activate(request, uidb64, token):
         login(request, user)
         return redirect("account:dashboard")
     else:
-        return request(request, "account/registration/activate_invalid.html")
+        return render(request, "account/registration/activate_invalid.html")
 
 
 @login_required
