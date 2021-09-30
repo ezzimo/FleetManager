@@ -73,7 +73,7 @@ class UserChangeForm(UserChangeForm):
         fields = "__all__"
 
 
-class RegistrationForm(forms.ModelForm):
+class RegistrationForm(UserCreationForm):
     first_name = forms.CharField(label=_("Entrer Votre Prenom"), min_length=4, max_length=50, help_text="Required")
     last_name = forms.CharField(label=_("Enter Votre Nom"), min_length=4, max_length=50, help_text="Required")
     email = forms.EmailField(
@@ -90,11 +90,11 @@ class RegistrationForm(forms.ModelForm):
             "email",
         )
 
-    def clean_full_name(self):
+    def clean_username(self):
         first_name = self.cleaned_data["first_name"].lower()
         last_name = self.cleaned_data["last_name"].lower()
         if User.objects.filter(first_name__exact=first_name, last_name__exact=last_name).exists():
-            raise forms.ValidationError("Ce Nom et Prenom existent déjà!")
+            raise forms.ValidationError("Ce Nom et Prenom existent")
         return first_name + " " + last_name
 
     def clean_password2(self):
