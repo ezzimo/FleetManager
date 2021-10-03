@@ -75,7 +75,7 @@
                                                         class="text-reset small list-group-item p-0 pb-1 border-0 dropdown-account-link">Votre
                                                         Profile</a>
                                                     <a href="{% url 'account:logout' %}"
-                                                        class="text-reset small list-group-item p-0 pb-1 border-0 dropdown-account-link">Deconnexion</a>
+                                                        class="text-reset small list-group-item p-0 pb-1 border-0 dropdown-account-link">Déconnexion</a>
                                                     {% else %}
                                                     <a href="{% url 'account:login' %}"
                                                         class="text-reset small list-group-item p-0 pb-1 border-0 dropdown-account-link">se
@@ -96,7 +96,7 @@
                         <ul class="list-group list-group-flush dropdown-account-link">
                             {% if user.is_authenticated %}
                             <a href="{% url 'account:dashboard' %}" class="dropdown-item"> Tableau de Bord</a>
-                            <a href="{% url 'account:logout' %}" class="dropdown-item">Deconection</a>
+                            <a href="{% url 'account:logout' %}" class="dropdown-item">Déconnexion</a>
                             {% else %}
                             <a href="{% url 'account:login' %}" class="dropdown-item">Se Connecter</a>
                             {% endif %}
