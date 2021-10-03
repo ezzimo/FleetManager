@@ -173,3 +173,5 @@ DEFAULT_FROM_EMAIL = env("DEFAULT_FROM_EMAIL")
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 DEFAULT_FILE_STORAGE = "Manager.settings.storage_backends.MediaStorage"
 # Configure Django App for Heroku.
+# Activate Django-Heroku.
+django_heroku.settings(locals())
