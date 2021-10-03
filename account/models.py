@@ -17,12 +17,20 @@ class Bank(models.Model):
     def __str__(self):
         return self.bank_name
 
+    class Meta:
+        verbose_name = "Bank"
+        verbose_name_plural = "Banks"
+
 
 class Region(models.Model):
     region = models.CharField(max_length=128)
 
     def __str__(self):
         return self.region
+
+    class Meta:
+        verbose_name = "Region"
+        verbose_name_plural = "Regions"
 
 
 class City(models.Model):
@@ -31,6 +39,10 @@ class City(models.Model):
 
     def __str__(self):
         return self.city
+
+    class Meta:
+        verbose_name = "City"
+        verbose_name_plural = "Cities"
 
 
 class UserAccountManager(BaseUserManager):
