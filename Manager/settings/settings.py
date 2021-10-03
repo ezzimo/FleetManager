@@ -81,7 +81,7 @@ WSGI_APPLICATION = "Manager.wsgi.application"
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
 django_heroku.settings(locals())
-if DEVELOPMENT_MODE:
+if DEVELOPMENT_MODE == True:
     DATABASES = {
         "default": {
             "ENGINE": "django.contrib.gis.db.backends.postgis",
@@ -91,11 +91,10 @@ if DEVELOPMENT_MODE:
             "HOST": "localhost",
         }
     }
-else:
-    DATABASES = {
-        "default": dj_database_url.config(conn_max_age=86400),
-    }
-    DATABASES["default"]["ENGINE"] = "django.contrib.gis.db.backends.postgis"
+DATABASES = {
+    "default": dj_database_url.config(conn_max_age=86400),
+}
+DATABASES["default"]["ENGINE"] = "django.contrib.gis.db.backends.postgis"
 
 
 # Password validation
