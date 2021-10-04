@@ -11,19 +11,15 @@
         {% for vehicle in vehicles %}
         <div class="col">
             <div class="card mb-4 rounded-3 shadow-sm">
-                <div class="card-header py-3">
-                    <h4 class="my-0 fw-normal"> {{ vehicle.model.make}} </h4>
-                    <h3 class="my-0 fw-normal"> {{ vehicle.model}} </h3>
+                <div class="card-header py-4">
+                    <span class="h6 text-muted"><img class="img" src="{{vehicle.model.make.logo.url}}" alt="{{vehicle.model.make}}" width="45"
+                        height="30"> </span>
+                    <p class="text-muted"><span class="h5">{{ vehicle.model}}</span></p>
                 </div>
                 <div class="card-body">
+                <a href="{{vehicle.get_absolute_url}}">
                     <img src="{{ vehicle.picture.url}}" alt="Hi" class="img-fluid" height="350" width="650">
-                    <div class="list-unstyled mt-3 mb-4">
-                        <a href=" {{vehicle.get_absolute_url}}">
-                            <p>
-                                {{vehicle.slug}}
-                            </p>
-                        </a>
-                    </div>
+                    </a>
                 </div>
             </div>
         </div>
