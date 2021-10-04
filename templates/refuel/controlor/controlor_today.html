@@ -5,7 +5,7 @@
 {% endblock title %}
 {% block content %}
 <div class="container">
-  <h3>La liste du Gazoile pour Station {{ user }} </h3>
+  <h3>La liste du Gasoile pour Station {{ user }} </h3>
   <div class="container">
     {% csrf_token %}
     <table class="table table-hover" border="2">
@@ -20,7 +20,7 @@
         <th scope="row" colspan="2">  Action:               </th>
       </thead>
       <tbody id="body-table">
-        {% for refuel in refuel_list %}
+        {% for refuel in todayrefuel %}
         <tr>
           <td>{{ refuel.vehicle.serie}}</td>
           <td>{{ refuel.vehicle.driver.first_name }} {{refuel.vehicle.driver.last_name}}</td>
@@ -54,8 +54,5 @@
     {% endif %}
     {% endblock %}
   </div>
-  <hr>
-  <br><span>Totale</span>
-  {{total = sum([refuel.total_price for refuel in refuel_list])}}
 </div>
 {% endblock content %}

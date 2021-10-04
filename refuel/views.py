@@ -9,8 +9,8 @@ from django.contrib.auth.mixins import (
     UserPassesTestMixin,
 )
 from django.db.models import F, Sum
-from django.http import HttpResponse
-from django.shortcuts import redirect, render
+from django.http import HttpResponse, request
+from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse, reverse_lazy
 from django.utils.timezone import now
 from django.views import View, generic
@@ -82,15 +82,14 @@ class RefuelsListView(LoginRequiredMixin, UserPassesTestMixin, generic.ListView)
             .order_by("gaz_station")
             .annotate(total=Sum(F("fuel_quantity") * F("fuel_unit_price")))
         )
-        return context
+        if context["Totale"]:
+            return context
+        elif not context["Totale"]:
+            context["Totale"] = 0
+            return context
 
     def test_func(self):
         return self.request.user.is_active and self.request.user.is_supervisor
-
-    # def get_context_data(self, *args, **kwargs):
-    # context = super(RefuelsListView, self).get_context_data(*args, **kwargs)
-    # context["users"] = YourModel.objects.all()
-    # return context
 
 
 class RefuelCreationView(LoginRequiredMixin, CreateView):
@@ -172,35 +171,19 @@ class ControlorRefuel(LoginRequiredMixin, UserPassesTestMixin, WeekArchiveView):
     model = Refuel
     date_field = "created_at"
     template_name = "refuel/controlor/controlor_today.html"
+    context_object_name = "todayrefuel"
     week_format = "%W"
-    date = datetime.datetime.today()
     week = week
     year = year
+    queryset = Refuel.objects.select_related("gaz_station__Controlor_id")
     allow_empty = True
 
     def get_queryset(self, **kwargs):
-        todayrefuel = super(ControlorRefuel, self).get_queryset()
-        controlor_list = todayrefuel.select_related("gaz_station__Controlor_id").filter(
-            gaz_station__Controlor_id=self.request.user
-        )
-        return controlor_list
+        queryset = self.queryset.filter(gaz_station__Controlor_id=self.request.user.id)
+        return queryset
 
     def test_func(self):
         return self.request.user.is_active and self.request.user.is_controlor
-
-
-# @login_required
-# def FuelConsumptionView(self, request):
-# if request.POST.get("action") == "post":
-# Controlor_id = self.request.user
-# gaz_station = GazStation.objects.filter(Controlor_id=self.request.user)
-# vehicle = request.POST.get("vehicle")
-# driver = request.POST.get("driver")
-# consumption = request.POST.get("consumption")
-#
-# )
-# response = JsonResponse({"success": "Return something"})
-# return response
 
 
 ###########################################################################################
