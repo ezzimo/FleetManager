@@ -12,22 +12,24 @@
       {% if user.is_controlor %}
       <div>Gerer vos <b>Alimentations En Carburant</b></div>
       {% comment %} <div><a href="{% url 'account:edit_details' %}">Change Details</a></div> {% endcomment %}
-    {% elif user.is_supervisor%}
+      {% elif user.is_supervisor%}
       <div>Verifier les Alimentations En Carburant</div>
-    {% endif %}
+      {% endif %}
     </div>
     <hr />
   </div>
   <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3 position-relative">
-  {% if user.is_controlor %}
+    {% if user.is_controlor %}
     <div class="col h-100">
-      <a href="{% url 'refuel:controlor-refuel-list' %}" class="text-reset text-decoration-none" role="button" style="width: 540px;">
+      <a href="{% url 'refuel:controlor-refuel-list' %}" class="text-reset text-decoration-none" role="button"
+        style="width: 540px;">
         <div class="card mb-3">
           <div class="row g-0">
             <div class="col-2 position-relative">
-              <svg class="position-relative translate-middle" xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-house"
-                viewBox="0 0 16 16">
-                <img class="top-150 start-50 " src="{% static 'home_vehicle/List-icone.png' %}" width="36" height="45" alt="">
+              <svg class="position-relative translate-middle" xmlns="http://www.w3.org/2000/svg" width="30" height="30"
+                fill="currentColor" class="bi bi-house" viewBox="0 0 16 16">
+                <img class="top-150 start-50 " src="{% static 'home_vehicle/List-icone.png' %}" width="36" height="45"
+                  alt="">
               </svg>
             </div>
             <div class="col-10">
@@ -46,8 +48,8 @@
         <div class="card mb-3">
           <div class="row g-0">
             <div class="col-2 position-relative">
-              <svg class="position-relative translate-middle" xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-house"
-                viewBox="0 0 16 16">
+              <svg class="position-relative translate-middle" xmlns="http://www.w3.org/2000/svg" width="30" height="30"
+                fill="currentColor" class="bi bi-house" viewBox="0 0 16 16">
                 <img class="top-150 start-50 " src="{% static 'home_vehicle/gasoline-pump-svgrepo-com.svg' %}" alt="">
               </svg>
             </div>
@@ -63,13 +65,15 @@
     </div>
     {% elif user.is_supervisor%}
     <div class="col">
-      <a href="{% url 'refuel:all-refuels' %}" class="text-reset text-decoration-none" role="button" style="width: 540px;">
+      <a href="{% url 'refuel:all-refuels' %}" class="text-reset text-decoration-none" role="button"
+        style="width: 540px;">
         <div class="card mb-3">
           <div class="row g-0">
             <div class="col-2 position-relative">
-              <svg class="position-relative translate-middle" xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-house"
-                viewBox="0 0 16 16">
-                <img class="top-150 start-50 " src="{% static 'home_vehicle/List-icone.png' %}" width="36" height="45" alt="">
+              <svg class="position-relative translate-middle" xmlns="http://www.w3.org/2000/svg" width="30" height="30"
+                fill="currentColor" class="bi bi-house" viewBox="0 0 16 16">
+                <img class="top-150 start-50 " src="{% static 'home_vehicle/List-icone.png' %}" width="36" height="45"
+                  alt="">
               </svg>
             </div>
             <div class="col-10">
@@ -82,19 +86,20 @@
         </div>
       </a>
     </div>
-    <div class="col h-100">
-      <a href="{% url 'vehicle:vehicles_all' %}" class="text-reset text-decoration-none" role="button" style="width: 540px;">
+    <div class="col">
+      <a href="{% url 'vehicle:vehicles_all' %}" class="text-reset text-decoration-none" role="button"
+        style="width: 540px;">
         <div class="card mb-3">
           <div class="row g-0">
             <div class="col-2 position-relative">
-              <svg class="position-relative translate-middle" xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-house"
-                viewBox="0 0 16 16">
+              <svg class="position-relative translate-middle" xmlns="http://www.w3.org/2000/svg" width="30" height="30"
+                fill="currentColor" class="bi bi-house" viewBox="0 0 16 16">
                 <img class="top-150 start-50 " src="{% static 'home_vehicle/bus.png' %}" width="36" height="45" alt="">
               </svg>
             </div>
             <div class="col-10">
               <div class="card-body ps-0 ps-md-1">
-                <h1 class="h5">Liste des Bus</h1>
+                <h1 class="h5">Liste des Véhicules de la Flotte</h1>
                 <p class="card-text small text-muted">Voir, Suivre, Changer</p>
               </div>
             </div>
@@ -103,13 +108,15 @@
       </a>
     </div>
     <div class="col">
-      <a href="{% url 'refuel:consumption' %}" class="text-reset text-decoration-none" role="button" style="width: 540px;">
+      <a href="{% url 'refuel:consumption' %}" class="text-reset text-decoration-none" role="button"
+        style="width: 540px;">
         <div class="card mb-3">
           <div class="row g-0">
             <div class="col-2 position-relative">
-              <svg class="position-relative translate-middle" xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-house"
-                viewBox="0 0 16 16">
-                <img class="top-150 start-50 " src="{% static 'home_vehicle/percentage.png' %}" width="36" height="45" alt="">
+              <svg class="position-relative translate-middle" xmlns="http://www.w3.org/2000/svg" width="30" height="30"
+                fill="currentColor" class="bi bi-house" viewBox="0 0 16 16">
+                <img class="top-150 start-50 " src="{% static 'home_vehicle/percentage.png' %}" width="36" height="45"
+                  alt="">
               </svg>
             </div>
             <div class="col-10">
@@ -122,8 +129,164 @@
         </div>
       </a>
     </div>
-
     {% endif %}
   </div>
+    <div class="container">
+    <div class="col" id="container" style="width: 65%;">
+      <canvas id="refuelChart"></canvas>
+    </div></div>
+    <div class="container">
+    <div class="col-4 h-100" id="consumption"></div></div>
+
 </div>
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3"></script>
+<script type="text/javascript" src= {% static 'core/js/chartjs-plugin-colorschemes.min.js' %}></script>
+<script>
+  $.ajax({
+    method: "GET",
+    url: 'http://127.0.0.1:8000/api/v1/refuels/',
+    success: function (data) {
+      $.each(data, function (index, val) {
+        val.totale = +val.fuel_quantity * +val.fuel_unit_price;
+      });
+      const result = [...data.reduce((r, o) => {
+        const key = o.gaz_station + '-' + o.vehicle;
+        const refuel = r.get(key) || Object.assign({}, o, {
+          totale: 0
+        });
+        refuel.totale += +o.totale;
+        return r.set(key, refuel);
+      }, new Map).values()];
+      const gasoil_station = [...data.reduce((r, o) => {
+        const key = o.gaz_station;
+        const refuel = r.get(key) || Object.assign({}, o, {
+          totale: 0
+        });
+        refuel.totale += +o.totale;
+        return r.set(key, refuel);
+      }, new Map).values()];
+      console.log(result);
+      console.log(gasoil_station);
+      drawLineGraph(gasoil_station, 'refuelChart');
+    },
+    error: function (error_data) {
+      console.log(error_data);
+    }
+  });
+  $.ajax({
+    method: "GET",
+    url: 'http://127.0.0.1:8000/api/v1/consumption/',
+    success: function (data) {
+      let consumption = Object.create(null);
+      $.each(data, function (index, val) {
+        val.vehicle in consumption ? consumption[val.vehicle].push(val.consumption) : consumption[val
+          .vehicle] = [val.consumption];
+      });
+      $.each(consumption, function (index, value) {
+        const canvas = document.createElement('canvas');
+        const graphs = document.getElementById("consumption");
+        canvas.id = index;
+        graphs.appendChild(canvas);
+        const vehicle_data = Object.create(null);
+        vehicle_data[index] = value;
+        drawBarGraph(vehicle_data, index);
+      });
+    },
+    error: function (error_data) {
+      console.log(error_data);
+    }
+  });
+
+  function drawLineGraph(data, id) {
+    var labels = [];
+    var chartdata = [];
+    $.each(data, function (index, val) {
+      labels.push(val.gaz_station);
+      chartdata.push(val.totale);
+    });
+    var chartLabel = 'Coût Totale Gasoil par Station';
+    var ctx = document.getElementById(id).getContext('2d');
+    var chart = new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels: labels,
+        datasets: [{
+          label: chartLabel,
+          data: chartdata,
+        }]
+      },
+
+      // Configuration options go here
+      options: {
+        scales: {
+          xAxes: [{
+            display: true
+          }],
+          yAxes: [{
+            ticks: {
+              beginAtZero: true
+            },
+            scaleLabel: {
+              display: true,
+              labelString: 'Coùt gasoil '
+            }
+          }]
+        },
+        plugins: {
+
+          colorschemes: {
+
+            scheme: 'brewer.SetOne3'
+
+          }
+
+        }
+      }
+    });
+  };
+
+  function drawBarGraph(data, id) {
+    var chartdata = Object.values(data)[0];
+    var labels = [1, 2, 3, 4, 5];
+    var ctx = document.getElementById(id).getContext('2d');
+    var chart = new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels: labels,
+        datasets: [{
+          label: Object.keys(data),
+          data: chartdata,
+        }]
+      },
+
+      // Configuration options go here
+      options: {
+        scales: {
+          xAxes: [{
+            display: true
+          }],
+          yAxes: [{
+            ticks: {
+              beginAtZero: true
+            },
+            scaleLabel: {
+              display: true,
+              labelString: 'consomation %'
+            }
+          }]
+        },
+        plugins: {
+
+          colorschemes: {
+
+            scheme: 'brewer.PRGn8'
+
+          }
+
+        }
+      }
+    });
+  };
+</script>
 {% endblock content %}

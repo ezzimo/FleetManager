@@ -42,13 +42,13 @@
               {% for gazstation in gazstation_list %}
               <tr>
                 <td>{{gazstation.name}}</td>
-                <td>{{ gazstation.controlor.first_name }}</td>
-                <td>{{ gazstation.controlor.registration_number }}</td>
+                <td>{{ gazstation.Controlor_id.first_name }}</td>
+                <td>{{ gazstation.Controlor_id.registration_number }}</td>
                 <td>{{ gazstation.city_id.city}}</td>
                 <td> <map>
                   {{gazstation.geo_localization}}
                 </map> </td>
-                <td colspan="2">(<a href=" {% url 'Drivers_App_Management:gazstation-update' gazstation.id %} ">Modifier</a>)   (<a href=" {% url 'Drivers_App_Management:gazstation-delete' gazstation.id %} ">Suprimer</a>)</td>
+                <td colspan="2">(<a href=" {% url 'refuel:gazstation-update' gazstation.id %} ">Modifier</a>)   (<a href=" {% url 'refuel:gazstation-delete' gazstation.id %} ">Suprimer</a>)</td>
               </tr>
               {% endfor %}
             </tbody>

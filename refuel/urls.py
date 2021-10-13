@@ -1,8 +1,11 @@
+from django import urls
+from django.db import router
 from django.urls import include, path
 
 from . import views
 
 app_name = "refuel"
+
 urlpatterns = [
     path("gazstations", views.GazStationsListView.as_view(), name="all-gazstations"),
     path("GazStationCreation", views.GazStationCreationView.as_view(), name="gazstation-creation"),

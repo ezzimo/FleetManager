@@ -5,8 +5,11 @@ from django.contrib.auth import views
 from django.urls import include, path
 from django.views.generic import TemplateView
 
+from .settings.api import router
+
 urlpatterns = [
     path("admin/", admin.site.urls),
+    path("api/v1/", include(router.urls)),
     path("account/", include("account.urls", namespace="account")),
     path("refuel/", include("refuel.urls", namespace="refuel")),
     path("", include("vehicle.urls", namespace="vehicle")),

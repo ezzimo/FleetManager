@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% load mathfilters %}
+{% comment %} {% load mathfilters %} {% endcomment %}
 {% block title %}
     <title>Refuels Archive</title>
 {% endblock title %}
@@ -43,7 +43,7 @@
                 <td>{{ refuel.odometer_reading }}</td>
                 <td>{{ refuel.fuel_quantity }}</td>
                 <td>{{ refuel.fuel_unit_price }}</td>
-                <td>{{ refuel.fuel_quantity|mul:refuel.fuel_unit_price }}</td>
+                <td>{{ refuel.total_price}}</td>
                 <td>{{ refuel.gaz_station_id.city_id.city }}</td>
               </tr>
               {% endfor %}

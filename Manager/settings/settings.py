@@ -35,6 +35,7 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "rest_framework",
     "account",
     "vehicle",
     "refuel",
@@ -77,20 +78,17 @@ TEMPLATES = [
 WSGI_APPLICATION = "Manager.wsgi.application"
 
 
+REST_FRAMEWORK = {
+    # Use Django's standard `django.contrib.auth` permissions,
+    # or allow read-only access for unauthenticated users.
+    "DEFAULT_PERMISSION_CLASSES": ["rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly"]
+}
+
+
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
 django_heroku.settings(locals())
-if DEVELOPMENT_MODE == True:
-    DATABASES = {
-        "default": {
-            "ENGINE": "django.contrib.gis.db.backends.postgis",
-            "NAME": "manage",
-            "USER": "testuser",
-            "PASSWORD": "Lin123",
-            "HOST": "localhost",
-        }
-    }
 DATABASES = {
     "default": dj_database_url.config(conn_max_age=86400),
 }
@@ -171,5 +169,3 @@ EMAIL_HOST_PASSWORD = os.getenv("EMAIL_HOST_PASSWORD")
 DEFAULT_FROM_EMAIL = os.getenv("DEFAULT_FROM_EMAIL")
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 DEFAULT_FILE_STORAGE = "Manager.settings.storage_backends.MediaStorage"
-# Configure Django App for Heroku.
-# Activate Django-Heroku.
