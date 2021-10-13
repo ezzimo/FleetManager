@@ -89,6 +89,7 @@ REST_FRAMEWORK = {
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
 django_heroku.settings(locals())
+
 DATABASES = {
     "default": dj_database_url.config(conn_max_age=86400),
 }
