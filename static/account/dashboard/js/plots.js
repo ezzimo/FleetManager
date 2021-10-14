@@ -1,7 +1,7 @@
 
   $.ajax({
     method: "GET",
-    url: 'http://127.0.0.1:8000/api/v1/refuels/',
+    url: 'https://stjg.herokuapp.com/api/v1/refuels/',
     success: function (data) {
       $.each(data, function (index, val) {
         val.totale = +val.fuel_quantity * +val.fuel_unit_price;
@@ -32,7 +32,7 @@
   });
   $.ajax({
     method: "GET",
-    url: 'http://127.0.0.1:8000/api/v1/consumption/',
+    url: 'https://stjg.herokuapp.com/api/v1/consumption/',
     success: function (data) {
       let consumption = Object.create(null);
       $.each(data, function (index, val) {
