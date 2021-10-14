@@ -127,6 +127,10 @@
 
       // Configuration options go here
       options: {
+          title: {
+            display: true,
+            text: Object.keys(data)
+          },
         scales: {
           xAxes: [{
             display: true
@@ -142,13 +146,9 @@
           }]
         },
         plugins: {
-            title: {
-                display: true,
-                text: Object.keys(data)
-            },
-            colorschemes: {
-                scheme: 'brewer.PRGn8'
-            }
+          colorschemes: {
+            scheme: 'brewer.PRGn8'
+          }
         }
       }
     });
