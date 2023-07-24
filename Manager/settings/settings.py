@@ -39,9 +39,12 @@ INSTALLED_APPS = [
     "account",
     "vehicle",
     "refuel",
+    "maintenance",
+    "bootstrap4",
     "django.contrib.gis",
     "storages",
     "whitenoise.runserver_nostatic",
+    "django_plotly_dash.apps.DjangoPlotlyDashConfig",
 ]
 
 MIDDLEWARE = [
@@ -81,15 +84,29 @@ WSGI_APPLICATION = "Manager.wsgi.application"
 REST_FRAMEWORK = {"DEFAULT_PERMISSION_CLASSES": ["rest_framework.permissions.IsAuthenticated"]}
 
 
+DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
 django_heroku.settings(locals())
 
 DATABASES = {
-    "default": dj_database_url.config(conn_max_age=86400),
+    "default": {
+        "ENGINE": "django.contrib.gis.db.backends.postgis",
+        "NAME": "manage",
+        "USER": "testuser",
+        "PASSWORD": "Lin123",
+        "HOST": "localhost",
+    }
 }
-DATABASES["default"]["ENGINE"] = "django.contrib.gis.db.backends.postgis"
+
+# DATABASES = {
+#     "default": dj_database_url.config(conn_max_age=86400),
+# }
+# DATABASES["default"]["ENGINE"] = "django.contrib.gis.db.backends.postgis"
 
 
 # Password validation

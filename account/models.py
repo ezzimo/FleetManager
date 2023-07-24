@@ -147,6 +147,13 @@ class User(AbstractBaseUser, PermissionsMixin):
         verbose_name = "Account"
         verbose_name_plural = "Accounts"
 
+    @classmethod
+    def create(cls, email, first_name, last_name, password, **other_fields):
+        user = cls(email=email, first_name=first_name, last_name=last_name, **other_fields)
+        user.set_password(password)
+        user.save()
+        return user
+
     def full_name(self):
         """
         Return the first_name plus the last_name, with a space in between.
@@ -164,9 +171,9 @@ class User(AbstractBaseUser, PermissionsMixin):
         )
 
     def __str__(self):
-        return self.first_name + " " + self.last_name
+        return f"{self.first_name} {self.last_name}"
 
-
+# write function to get user id 
 class EmployeeSalary(models.Model):
     class PaymentMode(models.TextChoices):
         VIREMENT = "Vir", _("Virement")
@@ -187,7 +194,7 @@ class EmployeeSalary(models.Model):
         verbose_name_plural = _("Salaris")
 
     def __str__(self):
-        return self.employee
+        return f"{self.employee.first_name} {self.employee.last_name}"
 
 
 class Address(models.Model):

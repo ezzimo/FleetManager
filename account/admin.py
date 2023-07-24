@@ -27,7 +27,6 @@ class UserAdmin(UserAdmin):
     )
     list_filter = (
         "user_type",
-        "email",
         "is_staff",
         "is_active",
         "is_client",
@@ -166,7 +165,7 @@ class UserAdmin(UserAdmin):
                 )
             },
         ),
-    )  # Other fields showed when creating an user
+    )  # Other fields showed when creating a user
 
 
 admin.site.register(Bank)
