@@ -1,0 +1,11 @@
+{% extends "../account/sub_base.html" %}
+
+{% block sub_content %}
+  <h2>Maintenance Detail</h2>
+  <p>Vehicle: {{ schedule.vehicle }}</p>
+  <p>Maintenance Type: {{ schedule.maintenance_type }}</p>
+  <p>Scheduled Date: {{ schedule.scheduled_date }}</p>
+  <p>Notes: {{ schedule.notes }}</p>
+  <a href="{% url 'maintenance:update_maintenance_schedule' schedule.id %}">Update</a>
+  <a href="{% url 'maintenance:delete_maintenance_schedule' schedule.id %}">Delete</a>
+{% endblock %}

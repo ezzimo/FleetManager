@@ -1,0 +1,10 @@
+{% extends "../account/sub_base.html" %}
+
+{% block sub_content %}
+  <h2>Schedule Maintenance</h2>
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Schedule</button>
+  </form>
+{% endblock %}

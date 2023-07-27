@@ -1,0 +1,28 @@
+{% extends "../account/sub_base.html" %}
+
+{% block sub_content %}
+  <h1>Maintenance Records</h1>
+
+  <form method="get">
+    {{ filter_form.as_p }}
+    <input type="submit" value="Filter">
+  </form>
+
+  <ul>
+    {% for record in records %}
+      {% if not filter_form.cleaned_data.vehicle or record.vehicle == filter_form.cleaned_data.vehicle %}
+        {% if not filter_form.cleaned_data.maintenance_type or record.maintenance_type == filter_form.cleaned_data.maintenance_type %}
+          {% if not filter_form.cleaned_data.date or record.date == filter_form.cleaned_data.date %}
+            <li>
+              <a href="{% url 'maintenance_record_detail' record.id %}">{{ record.vehicle }} - {{ record.maintenance_type }}</a>
+            </li>
+          {% endif %}
+        {% endif %}
+      {% endif %}
+    {% empty %}
+      <li>No maintenance records available.</li>
+    {% endfor %}
+  </ul>
+
+  <a href="{% url 'maintenance:maintenance_record_new' %}">Add New Maintenance Record</a>
+{% endblock %}

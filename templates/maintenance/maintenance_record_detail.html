@@ -1,0 +1,14 @@
+{% extends "../account/sub_base.html" %}
+
+{% block sub_content %}
+  <h1>Maintenance Record Detail</h1>
+
+  <h2>Vehicle: {{ record.vehicle }}</h2>
+  <p>Maintenance Type: {{ record.maintenance_type }}</p>
+  <p>Date: {{ record.date }}</p>
+  <p>Notes: {{ record.notes }}</p>
+  <p>Cost: {{ record.cost }}</p>
+
+  <a href="{% url 'maintenance:maintenance_record_edit' record.id %}">Edit</a>
+  <a href="{% url 'maintenance:maintenance_record_delete' record.id %}">Delete</a>
+{% endblock %}

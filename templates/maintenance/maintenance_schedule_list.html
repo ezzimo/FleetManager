@@ -1,0 +1,25 @@
+{% extends "../account/sub_base.html" %}
+
+{% block sub_content %}
+  <h2>Upcoming Maintenance</h2>
+
+  <form method="get">
+    {{ filter_form.as_p }}
+    <input type="submit" value="Filter">
+  </form>
+
+  {% for schedule in schedules %}
+    {% if not filter_form.cleaned_data.vehicle or schedule.vehicle == filter_form.cleaned_data.vehicle %}
+      {% if not filter_form.cleaned_data.maintenance_type or schedule.maintenance_type == filter_form.cleaned_data.maintenance_type %}
+        <div>
+          <h3>{{ schedule.vehicle }}</h3>
+          <p>Scheduled for: {{ schedule.maintenance_type }} on {{ schedule.scheduled_date }}</p>
+          <p>Notes: {{ schedule.notes }}</p>
+          <a href="{% url 'maintenance:reschedule_maintenance' schedule.id %}">Reschedule</a>
+        </div>
+      {% endif %}
+    {% endif %}
+  {% empty %}
+    <p>No maintenance scheduled.</p>
+  {% endfor %}
+{% endblock %}

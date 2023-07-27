@@ -1,15 +1,87 @@
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
-from .models import MaintenanceRecord
-from .forms import MaintenanceRecordForm
+from .models import MaintenanceSchedule, MaintenanceRecord
+from .forms import MaintenanceScheduleForm, MaintenanceRecordForm, MaintenanceRecordFilterForm, MaintenanceScheduleFilterForm
 from account.decorators import AdministrationOnlyMixin
-from django.utils.decorators import method_decorator
+
+
+class MaintenanceScheduleListView(AdministrationOnlyMixin, ListView):
+    model = MaintenanceSchedule
+    template_name = 'maintenance/maintenance_schedule_list.html'
+    context_object_name = 'schedules'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['filter_form'] = MaintenanceScheduleFilterForm(self.request.GET)
+        return context
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        filter_form = MaintenanceScheduleFilterForm(self.request.GET)
+        if filter_form.is_valid():
+            # Apply filters to the queryset based on the form data
+            if filter_form.cleaned_data['vehicle']:
+                queryset = queryset.filter(vehicle=filter_form.cleaned_data['vehicle'])
+            if filter_form.cleaned_data['maintenance_type']:
+                queryset = queryset.filter(maintenance_type=filter_form.cleaned_data['maintenance_type'])
+        return queryset
+
+
+class MaintenanceScheduleCreateView(AdministrationOnlyMixin, CreateView):
+    model = MaintenanceSchedule
+    form_class = MaintenanceScheduleForm
+    template_name = 'maintenance/maintenance_schedule_form.html'
+
+    def get_success_url(self):
+        return reverse_lazy('maintenance_schedule_detail', args=[self.object.id])
+
+
+class MaintenanceScheduleDetailView(AdministrationOnlyMixin, DetailView):
+    model = MaintenanceSchedule
+    template_name = 'maintenance/maintenance_schedule_detail.html'
+    context_object_name = 'schedule'
+
+
+class MaintenanceScheduleUpdateView(AdministrationOnlyMixin, UpdateView):
+    model = MaintenanceSchedule
+    form_class = MaintenanceScheduleForm
+    template_name = 'maintenance/maintenance_schedule_form.html'
+
+    def get_success_url(self):
+        return reverse_lazy('maintenance_schedule_detail', args=[self.object.id])
+
+
+class MaintenanceScheduleDeleteView(AdministrationOnlyMixin, DeleteView):
+    model = MaintenanceSchedule
+    template_name = 'maintenance/maintenance_schedule_confirm_delete.html'
+
+    def get_success_url(self):
+        return reverse_lazy('maintenance_schedule_list')
 
 
 class MaintenanceRecordListView(AdministrationOnlyMixin, ListView):
     model = MaintenanceRecord
-    template_name = 'maintenance/maintenance_record_list.html'  # Adjust as needed
+    template_name = 'maintenance/maintenance_record_list.html'
     context_object_name = 'records'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['filter_form'] = MaintenanceRecordFilterForm(self.request.GET)
+        return context
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        filter_form = MaintenanceRecordFilterForm(self.request.GET)
+        if filter_form.is_valid():
+            # Apply filters to the queryset based on the form data
+            if filter_form.cleaned_data['vehicle']:
+                queryset = queryset.filter(vehicle=filter_form.cleaned_data['vehicle'])
+            if filter_form.cleaned_data['maintenance_type']:
+                queryset = queryset.filter(maintenance_type=filter_form.cleaned_data['maintenance_type'])
+            if filter_form.cleaned_data['date']:
+                queryset = queryset.filter(date=filter_form.cleaned_data['date'])
+        return queryset
+
 
 
 class MaintenanceRecordDetailView(AdministrationOnlyMixin, DetailView):

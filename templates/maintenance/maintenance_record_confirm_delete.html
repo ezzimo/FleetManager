@@ -1,0 +1,14 @@
+{% extends "../account/sub_base.html" %}
+
+{% block sub_content %}
+  <h1>Delete Maintenance Record</h1>
+
+  <p>Are you sure you want to delete the maintenance record for {{ record.vehicle }} - {{ record.maintenance_type }}?</p>
+
+  <form method="POST">
+    {% csrf_token %}
+    <input type="submit" value="Confirm Delete">
+  </form>
+
+  <a href="{% url 'maintenance:maintenance_record_detail' record.id %}">Cancel</a>
+{% endblock %}

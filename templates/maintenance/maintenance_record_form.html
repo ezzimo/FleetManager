@@ -1,0 +1,30 @@
+{% extends "../account/sub_base.html" %}
+
+{% block sub_content %}
+<h1>{% if form.instance.pk %}Edit{% else %}Add{% endif %} Maintenance Record</h1>
+<form method="post">
+    {% csrf_token %}
+    <div class="form-group">
+        <label class="form-label">{{ form.vehicle.label_tag }}</label>
+        {{ form.vehicle }}
+    </div>
+    <div class="form-group">
+        <label class="form-label">{{ form.date.label_tag }}</label>
+        {{ form.date }}
+    </div>
+    <div class="form-group">
+        <label class="form-label">{{ form.maintenance_type.label_tag }}</label>
+        {{ form.maintenance_type }}
+    </div>
+    <div class="form-group">
+        <label class="form-label">{{ form.notes.label_tag }}</label>
+        {{ form.notes }}
+    </div>
+    <div class="form-group">
+        <label class="form-label">{{ form.cost.label_tag }}</label>
+        {{ form.cost }}
+    </div>
+    <button type="submit" class="btn btn-primary">Save</button>
+</form>
+
+{% endblock %}

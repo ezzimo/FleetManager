@@ -1,7 +1,4 @@
-from django.core.exceptions import PermissionDenied
 from django.shortcuts import redirect
-from .models import User
-from .views import dashboard
 
 """
 def administration_only(function):
@@ -17,6 +14,6 @@ def administration_only(function):
 
 class AdministrationOnlyMixin:
     def dispatch(self, request, *args, **kwargs):
-        if not request.user.user_type == User.UserTypes.ADMINISTRATION:
-            return redirect("account:dashboard")  # replace 'home' with the name of your home view
+        if not request.user.is_authenticated or request.user.user_type != 'ad':
+            return redirect("account:dashboard")  
         return super().dispatch(request, *args, **kwargs)
