@@ -8,18 +8,49 @@
     <input type="submit" value="Filter">
   </form>
 
-  {% for schedule in schedules %}
-    {% if not filter_form.cleaned_data.vehicle or schedule.vehicle == filter_form.cleaned_data.vehicle %}
-      {% if not filter_form.cleaned_data.maintenance_type or schedule.maintenance_type == filter_form.cleaned_data.maintenance_type %}
-        <div>
-          <h3>{{ schedule.vehicle }}</h3>
-          <p>Scheduled for: {{ schedule.maintenance_type }} on {{ schedule.scheduled_date }}</p>
-          <p>Notes: {{ schedule.notes }}</p>
-          <a href="{% url 'maintenance:reschedule_maintenance' schedule.id %}">Reschedule</a>
-        </div>
-      {% endif %}
-    {% endif %}
-  {% empty %}
-    <p>No maintenance scheduled.</p>
-  {% endfor %}
+  <table>
+    <thead>
+      <tr>
+        <th>Vehicle</th>
+        <th>Maintenance Type</th>
+        <th>Scheduled Date</th>
+        <th>Notes</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for schedule in schedules %}
+        <tr>
+          <td>{{ schedule.vehicle }}</td>
+          <td>{{ schedule.maintenance_type }}</td>
+          <td>{{ schedule.scheduled_date }}</td>
+          <td>{{ schedule.notes }}</td>
+          <td><a href="{% url 'maintenance:update_maintenance_schedule' schedule.id %}">Reschedule</a></td>
+        </tr>
+      {% empty %}
+        <tr>
+          <td colspan="5">No maintenance scheduled.</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+  <div class="pagination">
+    <span class="step-links">
+        {% if page_obj.has_previous %}
+            <a href="?page=1">&laquo; first</a>
+            <a href="?page={{ page_obj.previous_page_number }}">previous</a>
+        {% endif %}
+
+        <span class="current">
+            Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+        </span>
+
+        {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}">next</a>
+            <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+        {% endif %}
+    </span>
+</div>
+
 {% endblock %}

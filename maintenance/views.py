@@ -9,6 +9,7 @@ class MaintenanceScheduleListView(AdministrationOnlyMixin, ListView):
     model = MaintenanceSchedule
     template_name = 'maintenance/maintenance_schedule_list.html'
     context_object_name = 'schedules'
+    paginate_by = 100
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -16,9 +17,9 @@ class MaintenanceScheduleListView(AdministrationOnlyMixin, ListView):
         return context
 
     def get_queryset(self):
-        queryset = super().get_queryset()
+        queryset = super().get_queryset().select_related('vehicle', 'maintenance_type')
         filter_form = MaintenanceScheduleFilterForm(self.request.GET)
-        if filter_form.is_valid():
+        if self.request.GET and filter_form.is_valid():
             # Apply filters to the queryset based on the form data
             if filter_form.cleaned_data['vehicle']:
                 queryset = queryset.filter(vehicle=filter_form.cleaned_data['vehicle'])
@@ -33,7 +34,7 @@ class MaintenanceScheduleCreateView(AdministrationOnlyMixin, CreateView):
     template_name = 'maintenance/maintenance_schedule_form.html'
 
     def get_success_url(self):
-        return reverse_lazy('maintenance_schedule_detail', args=[self.object.id])
+        return reverse_lazy('maintenance:maintenance_schedule_detail', args=[self.object.id])
 
 
 class MaintenanceScheduleDetailView(AdministrationOnlyMixin, DetailView):
@@ -48,7 +49,7 @@ class MaintenanceScheduleUpdateView(AdministrationOnlyMixin, UpdateView):
     template_name = 'maintenance/maintenance_schedule_form.html'
 
     def get_success_url(self):
-        return reverse_lazy('maintenance_schedule_detail', args=[self.object.id])
+        return reverse_lazy('maintenance:maintenance_schedule_detail', args=[self.object.id])
 
 
 class MaintenanceScheduleDeleteView(AdministrationOnlyMixin, DeleteView):
@@ -56,13 +57,14 @@ class MaintenanceScheduleDeleteView(AdministrationOnlyMixin, DeleteView):
     template_name = 'maintenance/maintenance_schedule_confirm_delete.html'
 
     def get_success_url(self):
-        return reverse_lazy('maintenance_schedule_list')
+        return reverse_lazy('maintenance:maintenance_schedule_list')
 
 
 class MaintenanceRecordListView(AdministrationOnlyMixin, ListView):
     model = MaintenanceRecord
     template_name = 'maintenance/maintenance_record_list.html'
     context_object_name = 'records'
+    paginate_by = 100
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -70,9 +72,9 @@ class MaintenanceRecordListView(AdministrationOnlyMixin, ListView):
         return context
 
     def get_queryset(self):
-        queryset = super().get_queryset()
+        queryset = super().get_queryset().select_related('vehicle', 'maintenance_type')
         filter_form = MaintenanceRecordFilterForm(self.request.GET)
-        if filter_form.is_valid():
+        if self.request.GET and filter_form.is_valid():
             # Apply filters to the queryset based on the form data
             if filter_form.cleaned_data['vehicle']:
                 queryset = queryset.filter(vehicle=filter_form.cleaned_data['vehicle'])
@@ -96,7 +98,7 @@ class MaintenanceRecordCreateView(AdministrationOnlyMixin, CreateView):
     template_name = 'maintenance/maintenance_record_form.html'
 
     def get_success_url(self):
-        return reverse_lazy('maintenance_record_detail', args=[self.object.id])
+        return reverse_lazy('maintenance:maintenance_record_detail', args=[self.object.id])
 
 
 class MaintenanceRecordUpdateView(AdministrationOnlyMixin, UpdateView):
@@ -105,7 +107,7 @@ class MaintenanceRecordUpdateView(AdministrationOnlyMixin, UpdateView):
     template_name = 'maintenance/maintenance_record_form.html'
 
     def get_success_url(self):
-        return reverse_lazy('maintenance_record_detail', args=[self.object.id])
+        return reverse_lazy('maintenance:maintenance_record_detail', args=[self.object.id])
 
 
 class MaintenanceRecordDeleteView(AdministrationOnlyMixin, DeleteView):
@@ -113,4 +115,4 @@ class MaintenanceRecordDeleteView(AdministrationOnlyMixin, DeleteView):
     template_name = 'maintenance/maintenance_record_confirm_delete.html'  # Adjust as needed
 
     def get_success_url(self):
-        return reverse_lazy('maintenance_record_list')
+        return reverse_lazy('maintenance:maintenance_record_list')

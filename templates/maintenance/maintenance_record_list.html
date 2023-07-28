@@ -8,21 +8,49 @@
     <input type="submit" value="Filter">
   </form>
 
-  <ul>
-    {% for record in records %}
-      {% if not filter_form.cleaned_data.vehicle or record.vehicle == filter_form.cleaned_data.vehicle %}
-        {% if not filter_form.cleaned_data.maintenance_type or record.maintenance_type == filter_form.cleaned_data.maintenance_type %}
-          {% if not filter_form.cleaned_data.date or record.date == filter_form.cleaned_data.date %}
-            <li>
-              <a href="{% url 'maintenance_record_detail' record.id %}">{{ record.vehicle }} - {{ record.maintenance_type }}</a>
-            </li>
-          {% endif %}
+  <table>
+    <thead>
+      <tr>
+        <th>Vehicle</th>
+        <th>Maintenance Type</th>
+        <th>Date</th>
+        <th>Details</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for record in records %}
+        <tr>
+          <td>{{ record.vehicle }}</td>
+          <td>{{ record.maintenance_type }}</td>
+          <td>{{ record.date }}</td>
+          <td><a href="{% url 'maintenance:maintenance_record_detail' record.id %}">View</a></td>
+        </tr>
+      {% empty %}
+        <tr>
+          <td colspan="4">No maintenance records available.</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+  <div class="pagination">
+    <span class="step-links">
+        {% if page_obj.has_previous %}
+            <a href="?page=1">&laquo; first</a>
+            <a href="?page={{ page_obj.previous_page_number }}">previous</a>
         {% endif %}
-      {% endif %}
-    {% empty %}
-      <li>No maintenance records available.</li>
-    {% endfor %}
-  </ul>
+
+        <span class="current">
+            Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+        </span>
+
+        {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}">next</a>
+            <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+        {% endif %}
+    </span>
+</div>
+
 
   <a href="{% url 'maintenance:maintenance_record_new' %}">Add New Maintenance Record</a>
 {% endblock %}
