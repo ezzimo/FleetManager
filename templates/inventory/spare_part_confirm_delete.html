@@ -1,0 +1,10 @@
+{% extends "../account/sub_base.html" %}
+
+{% block sub_content %}
+  <h1>Delete Spare Part</h1>
+  <p>Are you sure you want to delete the spare part "{{ object.name }}"?</p>
+  <form method="post">
+    {% csrf_token %}
+    <input type="submit" value="Confirm">
+  </form>
+{% endblock %}

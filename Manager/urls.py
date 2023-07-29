@@ -8,12 +8,13 @@ from django.views.generic import TemplateView
 from .settings.api import router
 
 urlpatterns = [
+    path("", include("vehicle.urls", namespace="vehicle")),
+    path("account/", include("account.urls", namespace="account")),
     path("admin/", admin.site.urls),
     path("api/v1/", include(router.urls)),
-    path("account/", include("account.urls", namespace="account")),
-    path("refuel/", include("refuel.urls", namespace="refuel")),
+    path("inventory/", include("inventory.urls", namespace="inventory")),
     path("maintenance/", include("maintenance.urls", namespace="maintenance")),
-    path("", include("vehicle.urls", namespace="vehicle")),
+    path("refuel/", include("refuel.urls", namespace="refuel")),
 ]
 
 if settings.DEBUG:

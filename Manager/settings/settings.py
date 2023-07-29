@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     "vehicle",
     "refuel",
     "maintenance",
+    "inventory",
     "bootstrap4",
     "django.contrib.gis",
     "storages",
