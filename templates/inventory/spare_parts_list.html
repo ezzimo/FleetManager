@@ -2,13 +2,30 @@
 
 {% block sub_content %}
   <h1>Spare Parts</h1>
-  <ul>
-    {% for spare_part in spare_parts %}
-      <li>
-        <a href="{% url 'inventory:spare_part_detail' spare_part.id %}">{{ spare_part.name }}</a>
-      </li>
-    {% empty %}
-      <li>No spare parts available.</li>
-    {% endfor %}
-  </ul>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Quantity</th>
+        <th>Minimum quantity</th>
+        <th>Date of last Order</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for spare_part in spare_parts %}
+        <tr>
+          <td>{{ spare_part.name }}</td>
+          <td>{{ spare_part.quantity }}</td>
+          <td>{{ spare_part.minimum_quantity }}</td>
+          <td>{{ spare_part.last_order_date }}</td>
+          <td><a href="{% url 'inventory:spare_part_detail' spare_part.id %}">Details</a></td>
+        </tr>
+      {% empty %}
+        <tr>
+          <td colspan="5">No spare parts available.</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
 {% endblock %}

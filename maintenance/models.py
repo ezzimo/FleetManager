@@ -1,6 +1,8 @@
 from django.db import models
 from django.utils import timezone
-from vehicle.models import Vehicle  # Assuming you have a Vehicle model
+from vehicle.models import Vehicle
+from inventory.models import SparePart, Order
+from inventory.constants import THRESHOLD, ORDER_QUANTITY
 from django.utils.translation import gettext_lazy as _
 
 
@@ -25,23 +27,13 @@ class MaintenanceType(models.Model):
         return self.get_name_display()
 
 
-
-class Part(models.Model):
-    name = models.CharField(max_length=200)
-    description = models.TextField()
-    count = models.IntegerField()
-
-    def __str__(self):
-        return self.name
-
-
 class MaintenanceRecord(models.Model):
     vehicle = models.ForeignKey(Vehicle, on_delete=models.CASCADE)
     maintenance_type = models.ForeignKey(MaintenanceType, on_delete=models.SET_NULL, null=True)
     date = models.DateField(default=timezone.now)
     notes = models.TextField(blank=True)
-    cost = models.DecimalField(max_digits=8, decimal_places=2)  # Adjust as needed
-    parts_used = models.ManyToManyField(Part, blank=True)
+    cost = models.DecimalField(max_digits=8, decimal_places=2)
+    parts_used = models.ManyToManyField(SparePart, blank=True)
 
     def __str__(self):
         return f'{self.vehicle} {self.maintenance_type} on {self.date}'
@@ -52,6 +44,13 @@ class MaintenanceSchedule(models.Model):
     maintenance_type = models.ForeignKey(MaintenanceType, on_delete=models.SET_NULL, null=True)
     scheduled_date = models.DateField()
     notes = models.TextField(blank=True)
+    parts_needed = models.ManyToManyField(SparePart, blank=True)
+
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
+        for part in self.parts_needed.all():
+            if part.quantity < THRESHOLD:
+                Order.objects.create(spare_part=part, quantity=ORDER_QUANTITY)
 
     def __str__(self):
         return f'{self.vehicle} scheduled for {self.maintenance_type} on {self.scheduled_date}'

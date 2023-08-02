@@ -1,7 +1,8 @@
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
-from .models import SparePart
+from .models import SparePart, Order
 from .forms import SparePartForm
+from .constants import THRESHOLD, ORDER_QUANTITY
 
 
 class SparePartsListView(ListView):
@@ -23,6 +24,13 @@ class SparePartCreateView(CreateView):
 
     def get_success_url(self):
         return reverse_lazy('inventory:spare_part_detail', args=[self.object.id])
+    
+    def form_valid(self, form):
+        response = super().form_valid(form)
+        spare_part = self.object
+        if spare_part.quantity < THRESHOLD:
+            Order.objects.create(spare_part=spare_part, quantity=ORDER_QUANTITY or spare_part.quantity)
+        return response
 
 
 class SparePartUpdateView(UpdateView):
@@ -32,6 +40,13 @@ class SparePartUpdateView(UpdateView):
 
     def get_success_url(self):
         return reverse_lazy('inventory:spare_part_detail', args=[self.object.id])
+
+    def form_valid(self, form):
+        response = super().form_valid(form)
+        spare_part = self.object
+        if spare_part.quantity < THRESHOLD:
+            Order.objects.create(spare_part=spare_part, quantity=ORDER_QUANTITY or spare_part.quantity)
+        return response
 
 
 class SparePartDeleteView(DeleteView):
