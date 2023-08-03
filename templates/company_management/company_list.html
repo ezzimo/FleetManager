@@ -1,0 +1,32 @@
+{% extends "../account/sub_base.html" %}
+
+{% block sub_content %}
+  <h2>Company List</h2>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Address</th>
+        <th>Contact Details</th>
+        <th>Number of employees</th>
+        <th>Fleet size</th>
+      </tr>
+    </thead>
+    <tbody>
+    {% for company in companies %}
+    <tr>
+      <td><a href="{% url 'company_management:company_detail' company.id %}">{{ company.name }}</a></td>
+      <td>{{ company.address }}</td>
+      <td>{{ company.contact_details }}</td>
+      <td>{{ company.number_of_employees }}</td>
+      <td><a href="{% url 'company_management:company_detail' company.id %}">{{ company.fleet_size}}</a></td>
+    </tr>
+    {% empty %}
+    <tr>
+        <td colspan="5">No companies yet.</td>
+    </tr>
+    {% endfor %}
+</tbody>
+</table>
+<a href="{% url 'company_management:company_new' %}">Add New Company</a>
+{% endblock %}

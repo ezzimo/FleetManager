@@ -1,0 +1,48 @@
+{% extends "../account/sub_base.html" %}
+
+{% block sub_content %}
+<div class="container">
+    <div class="row justify-content-center">
+      <div class="col-md-10">
+        <div class="card">
+          <div class="card-header">
+            <h3 class="mb-0">Company Details</h3>
+          </div>
+          <div class="card-body">
+            <table class="table table-bordered">
+              <tbody>
+                <tr>
+                  <th>Company Name</th>
+                  <td>{{ company.name }}</td>
+                </tr>
+                <tr>
+                  <th>Address</th>
+                  <td>{{ company.address }}</td>
+                </tr>
+                <tr>
+                  <th>Contact Details</th>
+                  <td>{{ company.contact_details }}</td>
+                </tr>
+                <tr>
+                  <th>Number of Employees</th>
+                  <td>{{ company.number_of_employees }}</td>
+                </tr>
+                <tr>
+                  <th>Fleet Size</th>
+                  <td>{{ company.fleet_size }}</td>
+                </tr>
+              </tbody>
+            </table>
+            <ul>
+                <li><a href="{% url 'company_management:company_edit' company.id %}">Edit</a></li>
+                <li><a href="{% url 'company_management:company_delete' company.id %}">Delete</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="card-body">
+            <a class="btn btn-primary btn-lg float-right" href="{% url 'company_management:company_list' %}">List of Companies</a>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

@@ -12,6 +12,7 @@ urlpatterns = [
     path("account/", include("account.urls", namespace="account")),
     path("admin/", admin.site.urls),
     path("api/v1/", include(router.urls)),
+    path("company_management/", include("CompanyManagement.urls", namespace="company_management")),
     path("inventory/", include("inventory.urls", namespace="inventory")),
     path("maintenance/", include("maintenance.urls", namespace="maintenance")),
     path("refuel/", include("refuel.urls", namespace="refuel")),

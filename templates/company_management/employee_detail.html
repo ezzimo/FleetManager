@@ -1,0 +1,6 @@
+{% extends "../account/sub_base.html" %}
+
+{% block sub_content %}
+  <h2>{{ employee.user.first_name }} {{ employee.user.last_name }}</h2>
+  <p>{{ employee.user.email }}</p>
+{% endblock %}

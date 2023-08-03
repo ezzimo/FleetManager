@@ -1,0 +1,14 @@
+{% extends "../account/sub_base.html" %}
+
+{% block sub_content %}
+  <h2>Employee List</h2>
+  <ul>
+    {% for employee in employees %}
+      <li>
+        <a href="{% url 'employee_detail' employee.id %}">{{ employee.user.first_name }} {{ employee.user.last_name }}</a>
+      </li>
+    {% empty %}
+      <li>No employees yet.</li>
+    {% endfor %}
+  </ul>
+{% endblock %}
