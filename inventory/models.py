@@ -8,8 +8,8 @@ class SparePart(models.Model):
     name = models.CharField(max_length=200)
     description = models.TextField()
     quantity = models.IntegerField()
-    minimum_quantity = models.IntegerField(help_text="The minimum quantity before a re-order is triggered.")
-    reorder_trigger = models.BooleanField(default=False, help_text="True if a re-order needs to be triggered.")
+    minimum_quantity = models.IntegerField(null=True, blank=True, help_text="The minimum quantity before a re-order is triggered.")
+    reorder_trigger = models.BooleanField(null=True, blank=True, default=False, help_text="True if a re-order needs to be triggered.")
     last_order_date = models.DateField(null=True, blank=True, help_text="The date of the last order for this part.")
 
     def __str__(self):
@@ -17,7 +17,7 @@ class SparePart(models.Model):
 
     def save(self, *args, **kwargs):
         if self.quantity < THRESHOLD:
-            Order.objects.create(spare_part=self, quantity=ORDER_QUANTITY or self.quantity)
+            Order.objects.create(spare_part=self, quantity=self.quantity or ORDER_QUANTITY)
             self.last_order_date = timezone.now()
         super().save(*args, **kwargs)
 

@@ -1,7 +1,7 @@
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
 from .models import SparePart, Order
-from .forms import SparePartForm
+from .forms import OrderForm, SparePartForm
 from .constants import THRESHOLD, ORDER_QUANTITY
 
 
@@ -53,3 +53,39 @@ class SparePartDeleteView(DeleteView):
     model = SparePart
     template_name = 'inventory/spare_part_confirm_delete.html'
     success_url = reverse_lazy('inventory:spare_parts_list')
+
+
+class OrderListView(ListView):
+    model = Order
+    template_name = 'inventory/order_list.html'
+    context_object_name = 'orders'
+
+
+class OrderDetailView(DetailView):
+    model = Order
+    template_name = 'inventory/order_detail.html'
+    context_object_name = 'order'
+
+
+class OrderCreateView(CreateView):
+    model = Order
+    form_class = OrderForm
+    template_name = 'inventory/order_form.html'
+
+    def get_success_url(self):
+        return reverse_lazy('inventory:order_detail', args=[self.object.id])
+
+
+class OrderUpdateView(UpdateView):
+    model = Order
+    form_class = OrderForm
+    template_name = 'inventory/order_form.html'
+
+    def get_success_url(self):
+        return reverse_lazy('inventory:order_detail', args=[self.object.id])
+
+
+class OrderDeleteView(DeleteView):
+    model = Order
+    template_name = 'inventory/order_confirm_delete.html'
+    success_url = reverse_lazy('inventory:order_list')

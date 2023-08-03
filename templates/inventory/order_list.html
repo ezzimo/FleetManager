@@ -1,0 +1,33 @@
+{% extends "../account/sub_base.html" %}
+
+{% block sub_content %}
+  <h1>Orders</h1>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Quantity</th>
+        <th>Order Date</th>
+        <th>Expected Delivery Date</th>
+        <th>Status</th>
+      </tr>
+    </thead>
+    <tbody>
+        {% for order in orders %}
+        <tr>
+          <td>{{ order.spare_part }}</td>
+          <td>{{ order.quantity }}</td>
+          <td>{{ order.order_date }}</td>
+          <td>{{ order.expected_delivery_date }}</td>
+          <td><a href="{% url 'inventory:order_detail' order.id %}">{{ order.status }}</a></td>
+          {% comment %} <td><a href="{% url 'inventory:order_detail' order.id %}">Details</a></td> {% endcomment %}
+        </tr>
+    {% empty %}
+        <tr>
+            <td colspan="5">No orders available.</td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+  <a href="{% url 'inventory:order_new' %}">Add New Order</a>
+{% endblock %}

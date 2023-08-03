@@ -1,0 +1,36 @@
+{% extends "../account/sub_base.html" %}
+
+{% block sub_content %}
+  <h1>Order Detail</h1>
+  <p>Spare Part: {{ order.spare_part.name }}</p>
+  <p>Quantity: {{ order.quantity }}</p>
+  <p>Order Date: {{ order.order_date }}</p>
+  <p>Expected Delivery Date: {{ order.expected_delivery_date }}</p>
+  <p>Received Date: {{ order.received_date }}</p>
+  <p>Status: {{ order.get_status_display }}</p>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Spare Part:</th>
+        <th>Quantity: </th>
+        <th>Order Date</th>
+        <th>Expected Delivery Date</th>
+        <th>Received Date:</th>
+        <th>Status</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <td>{{ order.spare_part.name }}</td>
+          <td>{{ order.quantity }}</td>
+          <td>{{ order.order_date }}</td>
+          <td>{{ order.expected_delivery_date }}</td>
+          <td>{{ order.received_date }}</td>
+          <td>{{ order.get_status_display }}</td>
+          {% comment %} <td><a href="{% url 'inventory:order_detail' order.id %}">Details</a></td> {% endcomment %}
+        </tr>
+    </tbody>
+</table>
+  <a href="{% url 'inventory:order_edit' order.id %}">Edit</a>
+  <a href="{% url 'inventory:order_delete' order.id %}">Delete</a>
+{% endblock %}
